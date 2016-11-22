@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 @EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan
-@MapperScan("cn.no7player.mapper")
+@MapperScan("xin.xlchen.dhu.stumanger.mapper")
 public class Application {
     private static Logger logger = Logger.getLogger(Application.class);
 
