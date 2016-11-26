@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.xlchen.dhu.stumanger.model.User;
 import xin.xlchen.dhu.stumanger.service.UserService;
 
-/**
- * Created by zl on 2015/8/27.
- */
 @Controller
 public class UserController {
 
@@ -22,8 +19,8 @@ public class UserController {
 
     @RequestMapping("/getUserInfo")
     @ResponseBody
-    public User getUserInfo() {
-        User user = userService.getUserInfo();
+    public User getAllUserInfo() {
+        User user = userService.getAllUserInfo();
         if(user!=null){
             System.out.println("user.getName():"+user.getName());
             logger.info("user.getAge():"+user.getAge());

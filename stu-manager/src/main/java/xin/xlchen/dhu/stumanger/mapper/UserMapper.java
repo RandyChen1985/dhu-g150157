@@ -1,10 +1,11 @@
 package xin.xlchen.dhu.stumanger.mapper;
 
+import java.util.Map;
+
 import xin.xlchen.dhu.stumanger.model.User;
 
-/**
- * Created by zl on 2015/8/27.
- */
+
 public interface UserMapper {
-    public User findUserInfo();
+    public User findUserInfoByUserName(Map<String, String> params);
+    public User findAllUserInfo();
 }
