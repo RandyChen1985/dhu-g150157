@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>账号管理</title>
+    <script type="text/javascript" src="/resource/commons/jeasyui/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/resource/commons/jeasyui/jquery.easyui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/resource/commons/jeasyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/resource/commons/jeasyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="/resource/commons/jeasyui/themes/dhu.css">
-    <script type="text/javascript" src="/resource/commons/jeasyui/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="/resource/commons/jeasyui/jquery.easyui.min.js"></script>
 </head>
 <body>
     <table id="dg" title="账号管理" class="easyui-datagrid" style="width:100%;height:350px"
-            url="/get_users"
+            url="/admin/service/getUsers" method="get"
             toolbar="#toolbar" pagination="true"
             rownumbers="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
-                <th field="firstname" width="50">First Name</th>
-                <th field="lastname" width="50">Last Name</th>
-                <th field="phone" width="50">Phone</th>
-                <th field="email" width="50">Email</th>
+                <th field="id" width="10">编号</th>
+                <th field="username" width="30">账号名</th>
+                <th field="realname" width="30">真实姓名</th>
+                <th field="user_type" width="20" formatter="formatUserType">身份类型</th>
+                <th field="create_time" width="50">创建时间</th>
+                <th field="lastloginip" width="50">最后登录IP</th>
+                <th field="lastlogin_time" width="50">最后登录时间</th>
             </tr>
         </thead>
     </table>
@@ -105,6 +108,14 @@
                 });
             }
         }
+        //格式化身份类型
+        function formatUserType(val,row){
+			if (val == 1){
+				return '<span style="color:red;">管理员</span>';
+			} else {
+				return '<span style="color:blue;">普通用户</span>';
+			}
+		}
     </script>
 </body>
 </html>

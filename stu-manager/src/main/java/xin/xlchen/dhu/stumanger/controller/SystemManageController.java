@@ -38,4 +38,16 @@ public class SystemManageController {
     	logger.info("[openAccountpage]打开账号管理界面!");
    		return "sysadmin/accountpage";
     }
+    
+    /**
+     * 日志查询页面
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value={"/admin/sysadmin/logspage"})
+   	public String openLogspage(ModelMap model, HttpServletRequest request) {
+    	logger.info("[openlogspage]打开日志管理界面!");
+   		return "sysadmin/logspage";
+    }
 }

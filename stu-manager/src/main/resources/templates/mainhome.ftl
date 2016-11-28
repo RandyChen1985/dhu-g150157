@@ -12,35 +12,25 @@
 <body class="easyui-layout">
 	<div region="north" border="true" class="cs-north">
 		<div class="cs-north-bg">
-		<div class="cs-north-logo">DHU学籍管理系统-${version}</div>
-		<p class="user-infor">${Session.user.username}当前已登录 <a href="/logout?username=${Session.user.username}">退出</a></p>	
+		<div class="cs-north-logo">DHU教务管理系统-${version}</div>
+		<p class="user-infor">${Session.user.realname}(${Session.user.username})当前已登录 <a id="btnLogout" href="#" title="点击退出系统" class="easyui-tooltip">退出</a></p>	
 		</div>
 	</div>
 	<div region="west" border="true" split="true" title="菜单导航" class="cs-west">
 		<div class="easyui-accordion" fit="true" border="false">
-				<div title="学生管理">
-					<a href="javascript:void(0);" src="demo/easyloader.html" class="cs-navi-tab">easyloader</a></p>
-					<a href="javascript:void(0);" src="demo/draggable.html" class="cs-navi-tab">draggable</a></p>
-					<a href="javascript:void(0);" src="demo/droppable.html" class="cs-navi-tab">droppable</a></p>
-					<a href="javascript:void(0);" src="demo/droppable1.html" class="cs-navi-tab">droppable1</a></p>
-					<a href="javascript:void(0);" src="demo/droppable2.html" class="cs-navi-tab">droppable2</a></p>
-					<a href="javascript:void(0);" src="demo/resizable.html" class="cs-navi-tab">resizable</a></p>
-					<a href="javascript:void(0);" src="demo/pagination.html" class="cs-navi-tab">pagination</a></p>
-					<a href="javascript:void(0);" src="demo/searchbox.html" class="cs-navi-tab">searchbox</a></p>
-					<a href="javascript:void(0);" src="demo/progressbar.html" class="cs-navi-tab">progressbar</a></p>
+				<div title="教务管理">
+					<a href="javascript:void(0);" src="demo/easyloader.html" class="cs-navi-tab">学生管理</a></p>
+					<a href="javascript:void(0);" src="demo/draggable.html" class="cs-navi-tab">学籍管理</a></p>
+					<a href="javascript:void(0);" src="demo/droppable.html" class="cs-navi-tab">课程管理</a></p>
+					<a href="javascript:void(0);" src="demo/droppable1.html" class="cs-navi-tab">成绩管理</a></p>
 				</div>
-				<div title="教师管理">
-					<a href="javascript:void(0);" src="demo/accordion.html" class="cs-navi-tab">accordion</a></p>
-					<a href="javascript:void(0);" src="demo/layout.html" class="cs-navi-tab">layout</a></p>
-					<a href="javascript:void(0);" src="demo/layout1.html" class="cs-navi-tab">layout1</a></p>
-					<a href="javascript:void(0);" src="demo/layout2.html" class="cs-navi-tab">layout2</a></p>
-					<a href="javascript:void(0);" src="demo/panel.html" class="cs-navi-tab">panel</a></p>
-					<a href="javascript:void(0);" src="demo/panel2.html" class="cs-navi-tab">panel1</a></p>
-					<a href="javascript:void(0);" src="demo/tabs.html" class="cs-navi-tab">tabs</a></p>
+				<div title="报表中心">
+					<a href="javascript:void(0);" src="demo/easyloader.html" class="cs-navi-tab">成绩排名</a></p>
 				</div>
 				<div title="系统管理">
 					<a href="javascript:void(0);" src="/admin/sysadmin/accountpage" class="cs-navi-tab">账号管理</a></p>
-					<a href="javascript:void(0);" src="demo/menubutton.html" class="cs-navi-tab">登录日志</a></p>
+					<a href="javascript:void(0);" src="/admin/sysadmin/logspage" class="cs-navi-tab">日志管理</a></p>
+					<a href="javascript:void(0);" src="/swagger/index.html" class="cs-navi-tab">接口中心</a></p>
 				</div>
 		</div>
 	</div>
@@ -49,7 +39,7 @@
 		 <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
                 <div title="HOME">
 				<div class="cs-home-remark">
-					 欢迎你使用学籍管理系统!<br/>
+					 欢迎你使用教务管理系统!<br/>
 					 上次登录时间: ${Session.user.lastlogin_time} </br>
 					 上次登录IP: ${Session.user.lastloginip} </br>
 				</div>
@@ -65,5 +55,27 @@
 		<div id="mm-tabcloseother">关闭其他</div>
 		<div id="mm-tabcloseall">关闭全部</div>
 	</div>
+	
+	<div id="dlg" class="easyui-dialog" style="padding:5px;width:400px;height:200px;"
+        title="提示" iconCls="icon-ok"  buttons="#dlg-buttons" data-options="modal:true">
+    是否真的要退出系统呢?
+	</div>
+	<div id="dlg-buttons">
+    <a href="/logout?username=${Session.user.username}" class="easyui-linkbutton" iconCls="icon-ok">Ok</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+	</div>
 </body>
+
+<!--控制退出按钮-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dlg').dialog('close');
+    });
+    $(document).ready(function () {
+            $("#btnLogout").click(function () {
+                $("#dlg").show();//必须先显示，再弹出
+                $("#dlg").dialog();
+            });
+    });
+</script>
 </html>

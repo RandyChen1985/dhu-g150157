@@ -6,6 +6,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -4173839866076450913L;
 	private String id;
     private String username;
+    private String realname;
     private String user_type;
     private String password;
     private String create_time;
@@ -53,11 +54,17 @@ public class User implements Serializable {
 	public void setLastlogin_time(String lastlogin_time) {
 		this.lastlogin_time = lastlogin_time;
 	}
+	public String getRealname() {
+		return realname;
+	}
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", user_type="
-				+ user_type + ", password=" + password + ", create_time="
-				+ create_time + ", lastloginip=" + lastloginip
-				+ ", lastlogin_time=" + lastlogin_time + "]";
+		return "User [id=" + id + ", username=" + username + ", realname="
+				+ realname + ", user_type=" + user_type + ", password="
+				+ password + ", create_time=" + create_time + ", lastloginip="
+				+ lastloginip + ", lastlogin_time=" + lastlogin_time + "]";
 	}
 }

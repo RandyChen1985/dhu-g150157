@@ -1,6 +1,7 @@
 package xin.xlchen.dhu.stumanger.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,10 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public User getUserInfo(String username,String password){
+    public User getUserInfo(String username){
     	//构建参数
     	Map<String, String> params = new HashMap<String, String>();
     	params.put("username", username);
-    	params.put("password", password);
     	//查询数据
         User user=userMapper.findUserInfoByUserName(params);
         return user;
@@ -30,10 +30,10 @@ public class UserService {
      * 获取所有用户数据
      * @return
      */
-    public User getAllUserInfo(){
+    public List<User> getAllUserInfo(){
     	//查询数据
-    	User user=userMapper.findAllUserInfo();
-    	return user;
+    	List<User> userList=userMapper.findAllUserInfo();
+    	return userList;
     }
 
 }

@@ -14,8 +14,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import xin.xlchen.dhu.stumanger.model.Logs;
 import xin.xlchen.dhu.stumanger.model.User;
+import xin.xlchen.dhu.stumanger.service.LogsService;
 import xin.xlchen.dhu.stumanger.service.UserService;
+import xin.xlchen.dhu.stumanger.util.StuManagerConstants;
 import xin.xlchen.dhu.stumanger.util.StuManagerUtils;
 
 @Controller
@@ -28,6 +31,9 @@ public class IndexController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private LogsService logsService;
     
     /**
      * 初始默认首页-登录
@@ -49,15 +55,27 @@ public class IndexController {
     @RequestMapping("/logincheck")
     public String logincheck(@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password, ModelMap model, HttpServletRequest request,HttpServletResponse response) {
         //收到登录请求
+    	String myPasswdMd5 = StuManagerUtils.md5Password(password);
     	logger.info("[logincheck]username:" + username);
-    	logger.info("[logincheck]password md5:" + StuManagerUtils.md5Password(password));
+    	logger.info("[logincheck]password md5:" + myPasswdMd5);
     	//
-    	User user = userService.getUserInfo(username, StuManagerUtils.md5Password(password));
-    	if (user != null && user.getUsername().trim().equalsIgnoreCase(username)) {
+    	User user = userService.getUserInfo(username);
+    	if (user != null && user.getUsername().trim().equalsIgnoreCase(username)
+    					 && user.getPassword().trim().equalsIgnoreCase(myPasswdMd5)) {
     		logger.info("[logincheck]登录验证成功," + user.toString());
     		model.addAttribute("user", user);
     		///记录登录信息到会话
     		request.getSession().setAttribute("user", user);
+    		
+    		//记录登录成功日志
+    		Logs logs = new Logs();
+    		logs.setUsername(username);
+    		logs.setLogstatus(StuManagerConstants.opp_status_ok);
+    		logs.setLogtype(StuManagerConstants.logtype_login);
+    		logs.setLogip(StuManagerUtils.getIpAddress(request));
+    		logs.setNotes("登录成功!!");
+    		logsService.saveLogs(logs);
+    		
     		
     		/////跳转到主页面
     		try {
@@ -65,6 +83,21 @@ public class IndexController {
 			} catch (IOException e) {
 			}
     	} else {
+    		String notes = "";
+    		if (user == null) {
+    			notes = "账号名" + username + "不存在!!";
+    		} else {
+    			notes = "密码错误!";
+    		}
+    		//记录登录失败日志
+    		Logs logs = new Logs();
+    		logs.setUsername(username);
+    		logs.setLogstatus(StuManagerConstants.opp_statuc_fail);
+    		logs.setLogtype(StuManagerConstants.logtype_login);
+    		logs.setLogip(StuManagerUtils.getIpAddress(request));
+    		logs.setNotes(notes);
+    		logsService.saveLogs(logs);
+    		
     		//登录失败,重定向到登录页面
     		logger.info("[logincheck]登录验证失败!!!");
     		model.put("errMsg", "账号名或密码验证错误,登录失败!");
@@ -85,6 +118,15 @@ public class IndexController {
     	//清空session会话
     	request.getSession().invalidate();
     	
+		//记录登出成功日志
+		Logs logs = new Logs();
+		logs.setUsername(username);
+		logs.setLogstatus(StuManagerConstants.opp_status_ok);
+		logs.setLogtype(StuManagerConstants.logtype_logout);
+		logs.setLogip(StuManagerUtils.getIpAddress(request));
+		logs.setNotes(username + "退出系统成功!!");
+		logsService.saveLogs(logs);
+		
     	//返回到登录界面
     	model.put("errMsg", "你已经安全的退出系统!");
    		return "login";

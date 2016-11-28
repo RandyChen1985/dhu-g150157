@@ -6,11 +6,9 @@ import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Created by zl on 2015/8/27.
- */
 @Configuration
 @EnableSwagger
 @EnableAutoConfiguration
@@ -24,11 +22,23 @@ public class SwaggerConfig
         this.springSwaggerConfig = springSwaggerConfig;
     }
 
-
+    @Bean
     public SwaggerSpringMvcPlugin customImplementation(){
         return  new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
-                .apiInfo(new ApiInfo("api", "desc", null, null, null, null))
+                .apiInfo(apiInfo())
                 .useDefaultResponseMessages(false)
-                .includePatterns("/users.*");
+                .includePatterns("/admin/service.*");
     }
+    
+    private ApiInfo apiInfo() {
+    	  ApiInfo apiInfo = new ApiInfo(
+    	          "接口服务中心",
+    	          "提供给前端调用的相关Restful接口",
+    	          "by g150157",
+    	          "g150157@mail.dhu.edu.cn",
+    	          "",
+    	          ""
+    	    );
+    	  return apiInfo;
+    	}
 }

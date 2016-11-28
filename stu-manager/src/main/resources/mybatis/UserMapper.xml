@@ -9,16 +9,13 @@
                 <if test="username != null and username != ''">
                         AND  username = #{username}
                 </if>
-                <if test="password != null and password != ''">
-                        AND  password = #{password}
-                </if>
           </where>
   </select>
   
   <!-- 根据账号名查询用户 -->
   <select id="findUserInfoByUserName" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.User">
    		 select * from t_user
-   		 where username = #{username} and password = #{password}
+   		 where username = #{username}
   </select>
  
 </mapper>
