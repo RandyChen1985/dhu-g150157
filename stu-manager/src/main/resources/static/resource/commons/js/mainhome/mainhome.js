@@ -142,12 +142,7 @@ $(function() {
 	});
 
 	var themes = {
-		'gray' : '/resource/commons/jeasyui/themes/gray/easyui.css',
-		'pepper-grinder' : '/resource/commons/jeasyui/themes/pepper-grinder/easyui.css',
-		'blue' : '/resource/commons/jeasyui/themes/default/easyui.css',
-		'cupertino' : '/resource/commons/jeasyui/themes/cupertino/easyui.css',
-		'dark-hive' : '/resource/commons/jeasyui/themes/dark-hive/easyui.css',
-		'sunny' : '/resource/commons/jeasyui/themes/sunny/easyui.css'
+		'default' : 'themes/default/easyui.css',
 	};
 
 	var skins = $('.li-skinitem span').click(function() {
@@ -169,7 +164,6 @@ $(function() {
 		skin == 'dark-hive' ? $('.cs-north-logo').css('color', '#FFFFFF') : $('.cs-north-logo').css('color', '#000000');
 	}
 });
-
 
 function setCookie(name,value) {//两个参数，一个是cookie的名子，一个是值
     var Days = 30; //此 cookie 将被保存 30 天

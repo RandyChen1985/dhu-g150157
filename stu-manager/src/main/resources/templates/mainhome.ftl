@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>DHU学籍管理管理-主界面</title>
-<link rel="stylesheet" type="text/css" href="/resource/commons/jeasyui/themes/pepper-grinder/easyui.css" id="swicth-style">
-<link rel="stylesheet" type="text/css" href="/resource/commons/css/mainhome/mainhome.css" id="swicth-style">
+<link rel="stylesheet" type="text/css" href="/resource/commons/jeasyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="/resource/commons/css/mainhome/mainhome.css">
 <script type="text/javascript" src="/resource/commons/jeasyui/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/resource/commons/jeasyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/resource/commons/js/mainhome/mainhome.js"></script>
@@ -12,15 +12,8 @@
 <body class="easyui-layout">
 	<div region="north" border="true" class="cs-north">
 		<div class="cs-north-bg">
-		<div class="cs-north-logo">DHU学籍管理系统</div>
-		<ul class="ui-skin-nav">				
-			<li class="li-skinitem" title="gray"><span class="gray" rel="gray"></span></li>
-			<li class="li-skinitem" title="pepper-grinder"><span class="pepper-grinder" rel="pepper-grinder"></span></li>
-			<li class="li-skinitem" title="blue"><span class="blue" rel="blue"></span></li>
-			<li class="li-skinitem" title="cupertino"><span class="cupertino" rel="cupertino"></span></li>
-			<li class="li-skinitem" title="dark-hive"><span class="dark-hive" rel="dark-hive"></span></li>
-			<li class="li-skinitem" title="sunny"><span class="sunny" rel="sunny"></span></li>
-		</ul>
+		<div class="cs-north-logo">DHU学籍管理系统-${version}</div>
+		<p class="user-infor">${Session.user.username}当前已登录 <a href="/logout?username=${Session.user.username}">退出</a></p>	
 		</div>
 	</div>
 	<div region="west" border="true" split="true" title="菜单导航" class="cs-west">
@@ -46,19 +39,19 @@
 					<a href="javascript:void(0);" src="demo/tabs.html" class="cs-navi-tab">tabs</a></p>
 				</div>
 				<div title="系统管理">
-					<a href="javascript:void(0);" src="demo/menu.html" class="cs-navi-tab">menu</a></p>
-					<a href="javascript:void(0);" src="demo/menubutton.html" class="cs-navi-tab">menubutton</a></p>
-					<a href="javascript:void(0);" src="demo/linkbutton.html" class="cs-navi-tab">linkbutton</a></p>
-					<a href="javascript:void(0);" src="demo/splitbutton.html" class="cs-navi-tab">splitbutton</a></p>
+					<a href="javascript:void(0);" src="/admin/sysadmin/accountpage" class="cs-navi-tab">账号管理</a></p>
+					<a href="javascript:void(0);" src="demo/menubutton.html" class="cs-navi-tab">登录日志</a></p>
 				</div>
 		</div>
 	</div>
 	<!--默认页面-->
 	<div id="mainPanle" region="center" border="true" border="false">
 		 <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
-                <div title="欢迎页">
+                <div title="HOME">
 				<div class="cs-home-remark">
-					<h1>EasyUi Bootstrap 1.3.0 Demo</h1> <br>
+					 欢迎你使用学籍管理系统!<br/>
+					 上次登录时间: ${Session.user.lastlogin_time} </br>
+					 上次登录IP: ${Session.user.lastloginip} </br>
 				</div>
 				</div>
         </div>

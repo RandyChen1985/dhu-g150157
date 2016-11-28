@@ -4,10 +4,10 @@
  
   <!-- 查询所有用户 -->
   <select id="findAllUserInfo" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.User">
-   		 select name, age,password from user
+   		 select * from t_user
    		  <where>
-                <if test="name != null and name != ''">
-                        AND  name = #{name}
+                <if test="username != null and username != ''">
+                        AND  username = #{username}
                 </if>
                 <if test="password != null and password != ''">
                         AND  password = #{password}
@@ -17,8 +17,8 @@
   
   <!-- 根据账号名查询用户 -->
   <select id="findUserInfoByUserName" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.User">
-   		 select name, age,password from user
-   		 where name = #{name} and password = #{password}
+   		 select * from t_user
+   		 where username = #{username} and password = #{password}
   </select>
  
 </mapper>

@@ -19,7 +19,7 @@ public class UserService {
     public User getUserInfo(String username,String password){
     	//构建参数
     	Map<String, String> params = new HashMap<String, String>();
-    	params.put("name", username);
+    	params.put("username", username);
     	params.put("password", password);
     	//查询数据
         User user=userMapper.findUserInfoByUserName(params);

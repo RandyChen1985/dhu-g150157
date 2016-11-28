@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import xin.xlchen.dhu.stumanger.model.User;
 import xin.xlchen.dhu.stumanger.service.UserService;
-import xin.xlchen.dhu.stumanger.service.util.StuManagerUtils;
+import xin.xlchen.dhu.stumanger.util.StuManagerUtils;
 
 @Controller
 @ComponentScan
 public class IndexController {
 	private static Logger logger = Logger.getLogger(IndexController.class);
-	@Value("${application.xiaolong:Hello World}")
-	private String message = "Hello World";
+	
+	@Value("${application.version:unkonwn}")
+	private String version = ""; //版本号,从配置中读取
 	
 	@Autowired
 	private UserService userService;
@@ -52,7 +53,7 @@ public class IndexController {
     	logger.info("[logincheck]password md5:" + StuManagerUtils.md5Password(password));
     	//
     	User user = userService.getUserInfo(username, StuManagerUtils.md5Password(password));
-    	if (user != null && user.getName().trim().equalsIgnoreCase(username)) {
+    	if (user != null && user.getUsername().trim().equalsIgnoreCase(username)) {
     		logger.info("[logincheck]登录验证成功," + user.toString());
     		model.addAttribute("user", user);
     		///记录登录信息到会话
@@ -73,6 +74,23 @@ public class IndexController {
     }
     
     /**
+     * 登出系统
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value={"/logout"})
+   	public String logout(@RequestParam(value="username", required=true) String username,ModelMap model,HttpServletRequest request) {
+    	logger.info("[mainpage]用户 " + username + " 已经登出系统!");
+    	//清空session会话
+    	request.getSession().invalidate();
+    	
+    	//返回到登录界面
+    	model.put("errMsg", "你已经安全的退出系统!");
+   		return "login";
+    }
+    
+    /**
      * 打开主界面
      * @param model
      * @param request
@@ -80,7 +98,19 @@ public class IndexController {
      */
     @RequestMapping(value={"/admin/main"})
    	public String mainpage(ModelMap model, HttpServletRequest request) {
-         model.put("message", this.message);
-   		return "mainhome";
+    	//判断是否已登录
+    	User user = (User)request.getSession().getAttribute("user");
+    	if (user == null) {
+    		//用户未登录或会话过期
+    		logger.info("[mainpage]用户未登录或会话过期,跳转到登录界面!");
+    		model.put("errMsg", "用户未登录或会话过期,请重新登录!");
+    		//
+    		request.getSession().invalidate(); //session失效
+    		return "login";
+    	} else {
+    		//正常已经登录的用户
+    		model.put("version", version);
+	   		return "mainhome";
+    	}
    	}
 }
