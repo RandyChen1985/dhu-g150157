@@ -133,4 +133,29 @@ public class UserService {
 		}
         return mResult;
     }
+    
+    /**
+     * 更新用户密码
+     * @param user
+     * @return
+     */
+    public MResult updateUserPasswd(User user){
+    	MResult mResult = new MResult();
+    	try {
+    		//判断用户是否已存在
+    		if (getUserInfo(user.getUsername()) == null) {
+    			mResult.setSuccess(false);
+    			mResult.setErrorMsg("账号["+user.getUsername()+"]已经不存在!");
+    		} else {
+    			//对密码字段加密
+    			user.setPassword(StuManagerUtils.md5Password(user.getPassword()));
+    			//更新账号密码
+    			userMapper.updateUserPasswd(user);
+    		}
+    	} catch (Exception e) {
+    		mResult.setSuccess(false);
+    		mResult.setErrorMsg(e.getMessage());
+    	}
+    	return mResult;
+    }
 }

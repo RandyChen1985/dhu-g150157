@@ -84,6 +84,21 @@ public class SwaggerController {
     }
     
     /**
+     * 更新账号密码
+     * @param username
+     * @param password
+     * @return
+     */
+    @ApiOperation(value="更新账号密码",notes="需要账号名,密码")
+    @RequestMapping(value="/updateUserPasswd",method=RequestMethod.POST)
+    public MResult updateUserPasswd(@RequestParam String username,@RequestParam String newpassword){
+    	User user = new User();
+    	user.setUsername(username);
+    	user.setPassword(newpassword);
+    	return userService.updateUserPasswd(user);
+    }
+    
+    /**
      * 按账号名删除账号对象
      * @param name
      * @return

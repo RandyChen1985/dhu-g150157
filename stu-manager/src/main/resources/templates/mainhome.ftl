@@ -8,12 +8,46 @@
 <script type="text/javascript" src="/resource/commons/jeasyui/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/resource/commons/jeasyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/resource/commons/js/mainhome/mainhome.js"></script>
+<script type="text/javascript">
+        var url;
+        //修改密码
+        function editPasswd(){
+	         $('#dlg-updatePasswd').dialog('open').dialog('center').dialog('setTitle','修改密码');
+	         url = '/admin/service/updateUserPasswd';
+        }
+        //编辑修改密码
+        function saveUpdatePasswd(){
+            $('#fm-updatePasswd').form('submit',{
+                url: url,
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+                    var result = eval('('+result+')');
+                    if (result.success){
+                    	//成功
+                        $('#dlg-updatePasswd').dialog('close');        // close the dialog
+                        $.messager.show({    
+                                    title: '提示',
+                                    msg: '密码修改成功!'
+                                });
+                    } else {
+                    	//失败
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    }
+                }
+            });
+        }
+</script>        
 </head>
 <body class="easyui-layout">
 	<div region="north" border="true" class="cs-north">
 		<div class="cs-north-bg">
 		<div class="cs-north-logo">DHU教务管理系统-${version}</div>
-		<p class="user-infor">${Session.user.realname}(${Session.user.username})当前已登录 <a id="btnLogout" href="#" title="点击退出系统" class="easyui-tooltip">退出</a></p>	
+		<p class="user-infor">${Session.user.realname}(${Session.user.username})当前已登录  <a href="javascript:void(0)" onclick="editPasswd()">修改密码</a>  <a id="btnLogout" href="#" title="点击退出系统" class="easyui-tooltip">退出</a></p>	
 		</div>
 	</div>
 	<div region="west" border="true" split="true" title="菜单导航" class="cs-west">
@@ -59,14 +93,33 @@
 		<div id="mm-tabcloseall">关闭全部</div>
 	</div>
 	
+	<!--退出提示对话框-->
 	<div id="dlg" class="easyui-dialog" style="padding:5px;width:400px;height:200px;"
         title="提示" iconCls="icon-ok"  buttons="#dlg-buttons" data-options="modal:true">
     是否真的要退出系统呢?
 	</div>
 	<div id="dlg-buttons">
-    <a href="/logout?username=${Session.user.username}" class="easyui-linkbutton" iconCls="icon-ok">Ok</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+    <a href="/logout?username=${Session.user.username}" class="easyui-linkbutton" iconCls="icon-ok">确认</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
+	
+	<!--修改密码-->
+    <div id="dlg-updatePasswd" class="easyui-dialog" style="width:400px"
+            closed="true" buttons="#dlg-updatePasswd-buttons">
+        <form id="fm-updatePasswd" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">密码信息</div>
+            <div style="margin-bottom:10px">
+                <input name="username" class="easyui-textbox" required="true" value="${Session.user.username}" editable="false" label="账号名:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="newpassword" class="easyui-passwordbox" prompt="Password" required="true" label="新密码:" style="width:100%">
+            </div>
+        </form>
+    </div>
+    <div id="dlg-updatePasswd-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUpdatePasswd()" style="width:90px">修改</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-updatePasswd').dialog('close')" style="width:90px">取消</a>
+    </div>
 </body>
 
 <!--控制退出按钮-->

@@ -22,11 +22,20 @@
             if (row){
                 $('#dlg-edit').dialog('open').dialog('center').dialog('setTitle','修改用户');
                 $('#fm-edit').form('load',row);
-                url = 'update_user.php?id='+row.id;
+                url = '/admin/service/editUser?id='+row.id;
+            }
+        }
+        //修改密码
+        function editPasswd(){
+            var row = $('#dg').datagrid('getSelected');
+            if (row){
+                $('#dlg-updatePasswd').dialog('open').dialog('center').dialog('setTitle','修改密码');
+                $('#fm-updatePasswd').form('load',row);
+                url = '/admin/service/updateUserPasswd?id='+row.id;
             }
         }
         //添加用户
-        function saveUser(){
+        function saveNewUser(){
             $('#fm-add').form('submit',{
                 url: url,
                 onSubmit: function(){
@@ -41,6 +50,60 @@
                         $.messager.show({    
                                     title: '提示',
                                     msg: '账号添加成功!'
+                                });
+                    } else {
+                    	//失败
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    }
+                }
+            });
+        }
+        //编辑用户
+        function saveEditUser(){
+            $('#fm-edit').form('submit',{
+                url: url,
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+                    var result = eval('('+result+')');
+                    if (result.success){
+                    	//成功
+                        $('#dlg-edit').dialog('close');        // close the dialog
+                        $('#dg').datagrid('reload');    // reload the user data
+                        $.messager.show({    
+                                    title: '提示',
+                                    msg: '账号修改成功!'
+                                });
+                    } else {
+                    	//失败
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    }
+                }
+            });
+        }
+        //编辑修改密码
+        function saveUpdatePasswd(){
+            $('#fm-updatePasswd').form('submit',{
+                url: url,
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+                    var result = eval('('+result+')');
+                    if (result.success){
+                    	//成功
+                        $('#dlg-updatePasswd').dialog('close');        // close the dialog
+                        $('#dg').datagrid('reload');    // reload the user data
+                        $.messager.show({    
+                                    title: '提示',
+                                    msg: '密码修改成功!'
                                 });
                     } else {
                     	//失败
@@ -105,6 +168,7 @@
     <div id="toolbar">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增账号</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改账号</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editPasswd()">修改密码</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除账号</a>
     </div>
     
@@ -131,11 +195,11 @@
         </form>
     </div>
     <div id="dlg-add-buttons">
-        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveNewUser()" style="width:90px">新增</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-add').dialog('close')" style="width:90px">取消</a>
     </div>
     
-    <!--修改-->
+    <!--修改用户-->
     <div id="dlg-edit" class="easyui-dialog" style="width:400px"
             closed="true" buttons="#dlg-edit-buttons">
         <form id="fm-edit" method="post" novalidate style="margin:0;padding:20px 50px">
@@ -155,8 +219,26 @@
         </form>
     </div>
     <div id="dlg-edit-buttons">
-        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">修改</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveEditUser()" style="width:90px">修改</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-edit').dialog('close')" style="width:90px">取消</a>
+    </div>
+    
+    <!--修改密码-->
+    <div id="dlg-updatePasswd" class="easyui-dialog" style="width:400px"
+            closed="true" buttons="#dlg-updatePasswd-buttons">
+        <form id="fm-updatePasswd" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">密码信息</div>
+            <div style="margin-bottom:10px">
+                <input name="username" class="easyui-textbox" required="true" editable="false" label="账号名:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="newpassword" class="easyui-passwordbox" prompt="Password" required="true" label="新密码:" style="width:100%">
+            </div>
+        </form>
+    </div>
+    <div id="dlg-updatePasswd-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUpdatePasswd()" style="width:90px">修改</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-updatePasswd').dialog('close')" style="width:90px">取消</a>
     </div>
 </body>
 </html>

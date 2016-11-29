@@ -13,4 +13,5 @@ public interface UserMapper {
     public void deleteUserInfo(Map<String, String> params);
     public void addUser(User user);
     public void editUser(User user);
+    public void updateUserPasswd(User user);
 }
