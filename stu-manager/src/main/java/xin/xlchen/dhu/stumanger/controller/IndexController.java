@@ -56,6 +56,7 @@ public class IndexController {
     public String logincheck(@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password, ModelMap model, HttpServletRequest request,HttpServletResponse response) {
         //收到登录请求
     	String myPasswdMd5 = StuManagerUtils.md5Password(password);
+    	String loginIp = StuManagerUtils.getIpAddress(request);
     	logger.info("[logincheck]username:" + username);
     	logger.info("[logincheck]password md5:" + myPasswdMd5);
     	//
@@ -72,10 +73,12 @@ public class IndexController {
     		logs.setUsername(username);
     		logs.setLogstatus(StuManagerConstants.opp_status_ok);
     		logs.setLogtype(StuManagerConstants.logtype_login);
-    		logs.setLogip(StuManagerUtils.getIpAddress(request));
+    		logs.setLogip(loginIp);
     		logs.setNotes("登录成功!!");
     		logsService.saveLogs(logs);
     		
+    		//保存最后登录信息
+    		userService.updateLastLoginInfo(username, loginIp);
     		
     		/////跳转到主页面
     		try {
@@ -94,7 +97,7 @@ public class IndexController {
     		logs.setUsername(username);
     		logs.setLogstatus(StuManagerConstants.opp_statuc_fail);
     		logs.setLogtype(StuManagerConstants.logtype_login);
-    		logs.setLogip(StuManagerUtils.getIpAddress(request));
+    		logs.setLogip(loginIp);
     		logs.setNotes(notes);
     		logsService.saveLogs(logs);
     		

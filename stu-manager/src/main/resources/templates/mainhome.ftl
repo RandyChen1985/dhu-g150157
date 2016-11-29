@@ -27,11 +27,14 @@
 				<div title="报表中心">
 					<a href="javascript:void(0);" src="demo/easyloader.html" class="cs-navi-tab">成绩排名</a></p>
 				</div>
-				<div title="系统管理">
-					<a href="javascript:void(0);" src="/admin/sysadmin/accountpage" class="cs-navi-tab">账号管理</a></p>
-					<a href="javascript:void(0);" src="/admin/sysadmin/logspage" class="cs-navi-tab">日志管理</a></p>
-					<a href="javascript:void(0);" src="/swagger/index.html" class="cs-navi-tab">接口中心</a></p>
-				</div>
+				<#if Session ["user"].user_type = 1> 
+					<!--管理员的功能-->
+				 	<div title="系统管理">
+						<a href="javascript:void(0);" src="/admin/sysadmin/accountpage" class="cs-navi-tab">账号管理</a></p>
+						<a href="javascript:void(0);" src="/admin/sysadmin/logspage" class="cs-navi-tab">日志管理</a></p>
+						<a href="javascript:void(0);" src="/swagger/index.html" class="cs-navi-tab">接口中心</a></p>
+					</div>
+				</#if> 
 		</div>
 	</div>
 	<!--默认页面-->

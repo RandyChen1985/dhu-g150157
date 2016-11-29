@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/resource/commons/jeasyui/themes/dhu.css">
 </head>
 <body>
-    <table id="dg" title="日志管理" class="easyui-datagrid" style="width:100%;height:350px"
+    <table id="dg" title="日志管理" class="easyui-datagrid" style="width:100%;height:480px"
             url="/admin/service/getLogs" method="get" pagination="true"
             rownumbers="true" fitColumns="true" singleSelect="true">
         <thead>
