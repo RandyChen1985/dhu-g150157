@@ -34,15 +34,6 @@
 					</descriptors>
 					<finalName>stu-manager</finalName>
 				</configuration>
-				<executions>
-					<execution>
-						<id>create-executable-jar</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

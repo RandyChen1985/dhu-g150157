@@ -5,12 +5,12 @@
 		<format>dir</format>
 		<format>tar.gz</format>
 	</formats>
-	<includeBaseDirectory>false</includeBaseDirectory>
+	<includeBaseDirectory>true</includeBaseDirectory>
 	<dependencySets>
 		<dependencySet>
 			<useProjectArtifact>false</useProjectArtifact>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
-			<outputDirectory>core-units</outputDirectory>
+			<outputDirectory>lib</outputDirectory>
 			<outputFileNameMapping>${artifact.artifactId}.jar
 			</outputFileNameMapping>
 			<scope>provided</scope>
@@ -31,17 +31,9 @@
 		</fileSet>
 		<fileSet>
 			<outputDirectory>/bin</outputDirectory>
-			<directory>wrapper/wrapper-linux-x86-64-3.5.11/stu-manager-bin</directory>
+			<directory>src/main/bin</directory>
 			<lineEnding>unix</lineEnding>
 			<fileMode>755</fileMode>
-		</fileSet>
-		<fileSet>
-			<outputDirectory>/conf</outputDirectory>
-			<directory>wrapper/wrapper-linux-x86-64-3.5.11/conf</directory>
-		</fileSet>
-		<fileSet>
-			<outputDirectory>/lib</outputDirectory>
-			<directory>wrapper/wrapper-linux-x86-64-3.5.11/lib</directory>
 		</fileSet>
 		<fileSet>
 			<outputDirectory>/conf</outputDirectory>
@@ -54,6 +46,10 @@
 		<fileSet>
 			<outputDirectory>/readme</outputDirectory>
 			<directory>src/main/readme</directory>
+		</fileSet>
+		<fileSet>
+			<outputDirectory>/dbscript</outputDirectory>
+			<directory>src/main/dbscript</directory>
 		</fileSet>
 	</fileSets>
 </assembly>

@@ -22,7 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @MapperScan("xin.xlchen.dhu.stumanger.mapper")
 public class Application {
     private static Logger logger = Logger.getLogger(Application.class);
-
+   
     @Bean
     @ConfigurationProperties(prefix="spring.datasource")
     public DataSource dataSource() {
@@ -53,6 +53,6 @@ public class Application {
      */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-        logger.info("SpringBoot Start Success");
+        logger.info("=====SpringBoot-stuManager Start Success=====");
     }
 }
