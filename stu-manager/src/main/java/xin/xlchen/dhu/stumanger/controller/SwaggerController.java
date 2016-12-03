@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import xin.xlchen.dhu.stumanger.model.Logs;
 import xin.xlchen.dhu.stumanger.model.MResult;
+import xin.xlchen.dhu.stumanger.model.Student;
 import xin.xlchen.dhu.stumanger.model.User;
 import xin.xlchen.dhu.stumanger.service.LogsService;
+import xin.xlchen.dhu.stumanger.service.StudentService;
 import xin.xlchen.dhu.stumanger.service.UserService;
 
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -30,6 +32,9 @@ public class SwaggerController {
   
 	@Autowired
 	private LogsService logsService;
+	
+	@Autowired
+	private StudentService studentService;
 	
 	/**
      *获取所有账号
@@ -118,5 +123,76 @@ public class SwaggerController {
     @RequestMapping(value="/getLogs",method=RequestMethod.GET)
     public List<Logs> getLogs(){
        return logsService.getAllLogs();
+    }
+    
+    ///////////// 学生管理 ///////////////
+	/**
+     *获取所有学生
+     * @return
+     */
+    @ApiOperation(value="获取所有学生",notes="requires noting")
+    @RequestMapping(value="/getStudents",method=RequestMethod.GET)
+    public List<Student> getStudents(){
+       return studentService.getAllStudent();
+    }
+    
+    /**
+     * 添加学生对象
+     * @param name
+     * @return
+     */
+    @ApiOperation(value="添加学生数据",notes="需要学生id,姓名,身份证...")
+    @RequestMapping(value="/addStudent",method=RequestMethod.POST)
+    public MResult addStudent(@RequestParam String studentId,
+    		@RequestParam String stuName,
+    		@RequestParam int stuGendar,
+    		@RequestParam String mobile,
+    		@RequestParam String idcard,
+    		@RequestParam String stuBirth){
+    	//构建对象
+        Student student = new Student();
+        student.setStudentId(studentId);
+        student.setStuName(stuName);
+        student.setStuGendar(stuGendar);
+        student.setMobile(mobile);
+        student.setIdcard(idcard);
+        student.setStuBirth(stuBirth);
+    	return studentService.addStudent(student);
+    }
+    
+    /**
+     * 编辑学生对象
+     * @param name
+     * @return
+     */
+    @ApiOperation(value="编辑学生数据",notes="需要学生id,姓名,身份证...")
+    @RequestMapping(value="/editStudent",method=RequestMethod.POST)
+    public MResult editStudent(@RequestParam String studentId,
+    		@RequestParam String stuName,
+    		@RequestParam int stuGendar,
+    		@RequestParam String mobile,
+    		@RequestParam String idcard,
+    		@RequestParam String stuBirth){
+    	//构建对象
+        Student student = new Student();
+        student.setStudentId(studentId);
+        student.setStuName(stuName);
+        student.setStuGendar(stuGendar);
+        student.setMobile(mobile);
+        student.setIdcard(idcard);
+        student.setStuBirth(stuBirth);
+    	return studentService.editStudent(student);
+    }
+    
+    /**
+     * 按学生编号删除学生对象
+     * @param name
+     * @return
+     */
+    @ApiOperation(value="按学生编号删除学生对象",notes="requires the studentId of Student")
+    @RequestMapping(value="/deleteStudentById/{studentId}",method=RequestMethod.POST)
+    public MResult deleteStudentById(@PathVariable String studentId){
+    	MResult result =  studentService.deleteUserInfo(studentId);
+        return result;
     }
 }

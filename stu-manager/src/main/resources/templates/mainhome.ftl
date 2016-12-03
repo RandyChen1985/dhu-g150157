@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>DHU学籍管理管理-主界面</title>
+<title>教务管理管理-主界面</title>
 <link rel="stylesheet" type="text/css" href="/resource/commons/jeasyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="/resource/commons/css/mainhome/mainhome.css">
 <script type="text/javascript" src="/resource/commons/jeasyui/jquery-1.7.2.min.js"></script>
@@ -46,20 +46,20 @@
 <body class="easyui-layout">
 	<div region="north" border="true" class="cs-north">
 		<div class="cs-north-bg">
-		<div class="cs-north-logo">DHU教务管理系统-${version}</div>
+		<div class="cs-north-logo">教务管理系统-${version}</div>
 		<p class="user-infor">${Session.user.realname}(${Session.user.username})当前已登录  <a href="javascript:void(0)" onclick="editPasswd()">修改密码</a>  <a id="btnLogout" href="#" title="点击退出系统" class="easyui-tooltip">退出</a></p>	
 		</div>
 	</div>
 	<div region="west" border="true" split="true" title="菜单导航" class="cs-west">
 		<div class="easyui-accordion" fit="true" border="false">
 				<div title="教务管理">
-					<a href="javascript:void(0);" src="demo/easyloader.html" class="cs-navi-tab">学生管理</a></p>
+					<a href="javascript:void(0);" src="/admin/stuadmin/studentpage" class="cs-navi-tab">学生管理</a></p>
 					<a href="javascript:void(0);" src="demo/draggable.html" class="cs-navi-tab">学籍管理</a></p>
 					<a href="javascript:void(0);" src="demo/droppable.html" class="cs-navi-tab">课程管理</a></p>
 					<a href="javascript:void(0);" src="demo/droppable1.html" class="cs-navi-tab">成绩管理</a></p>
 				</div>
 				<div title="报表中心">
-					<a href="javascript:void(0);" src="demo/easyloader.html" class="cs-navi-tab">成绩排名</a></p>
+					<a href="javascript:void(0);" src="http://echarts.baidu.com/gallery/editor.html?c=bar-gradient" class="cs-navi-tab">成绩排名</a></p>
 				</div>
 				<#if Session ["user"].user_type = 1> 
 					<!--管理员的功能-->

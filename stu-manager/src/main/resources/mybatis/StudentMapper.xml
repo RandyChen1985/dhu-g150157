@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xin.xlchen.dhu.stumanger.mapper.StudentMapper">
+ 
+  <!-- 查询所有学生信息 -->
+  <select id="findAllStudent" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.Student">
+   		 select * from t_student
+   		  <where>
+                <if test="studentId != null and studentId != ''">
+                        AND  studentId = #{studentId}
+                </if>
+          </where>
+  </select>
+  
+   <!-- 根据ID查询所有学生信息 -->
+  <select id="findStudentById" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.Student">
+   		 select * from t_student
+		 where studentId = #{studentId}
+  </select>
+  
+  <!-- 删除学生信息 -->
+  <delete id="deleteStudent" parameterType="java.util.Map">
+   		 delete from t_student
+   		 where studentId = #{studentId}
+  </delete>
+  
+  <!-- 添加学生信息 -->
+  <insert id="addStudent" parameterType="xin.xlchen.dhu.stumanger.model.Student">
+   		   		 insert into t_student
+   		   		 (
+		   		 studentId, 
+		   		 stuName,
+		   		 stuGendar, 
+		   		 stuBirth,
+		   		 mobile,
+		   		 idcard,
+		   		 createTime,
+		   		 updateTime
+	   		 	 ) 
+		   		 values
+		   		 (
+		   		 #{studentId}, 
+		   		 #{stuName}, 
+		   		 #{stuGendar}, 
+		   		 #{stuBirth}, 
+		   		 #{mobile}, 
+		   		 #{idcard}, 
+		   		 now(),
+		   		 now()
+		   		 )
+   </insert>
+  <!-- 编辑学生信息 -->
+  <update id="editStudent" parameterType="xin.xlchen.dhu.stumanger.model.Student">
+   		   		 update t_student
+   		   		 set stuName = #{stuName},
+   		   		 	stuGendar=#{stuGendar},
+   		   		 	stuBirth=#{stuBirth},
+   		   		 	mobile=#{mobile},
+   		   		 	idcard=#{idcard},
+   		   		 	updateTime=now()
+   		   		 where studentId = #{studentId}
+  </update>
+</mapper>

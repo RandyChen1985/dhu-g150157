@@ -20,9 +20,16 @@
         function editUser(){
             var row = $('#dg').datagrid('getSelected');
             if (row){
-                $('#dlg-edit').dialog('open').dialog('center').dialog('setTitle','修改用户');
-                $('#fm-edit').form('load',row);
-                url = '/admin/service/editUser?id='+row.id;
+            	if (row.username == 'admin') {
+            		 $.messager.show({
+                            title: 'Error',
+                            msg: '不允许修改默认admin账号的资料!'
+                        });
+            	} else {
+	                $('#dlg-edit').dialog('open').dialog('center').dialog('setTitle','修改用户');
+	                $('#fm-edit').form('load',row);
+	                url = '/admin/service/editUser?id='+row.id;
+                }
             }
         }
         //修改密码
@@ -119,24 +126,31 @@
         function destroyUser(){
             var row = $('#dg').datagrid('getSelected');
             if (row){
-                $.messager.confirm('确认','真的要删除账号 ' + row.username + ' 么?',function(r){
-                    if (r){
-                        $.post('/admin/service/deleteUserByName/' + row.username,{username:row.username},function(result){
-                            if (result.success){
-                                $('#dg').datagrid('reload');    // reload the user data
-                                $.messager.show({    
-                                    title: '提示',
-                                    msg: '账号 ' + row.username + ' 删除成功!'
-                                });
-                            } else {
-                                $.messager.show({    // show error message
-                                    title: 'Error',
-                                    msg: result.errorMsg
-                                });
-                            }
-                        },'json');
-                    }
-                });
+            	if (row.username == 'admin') {
+            		 $.messager.show({
+                            title: 'Error',
+                            msg: '不允许删除默认admin账号!'
+                        });
+            	} else {
+	                $.messager.confirm('确认','真的要删除账号 ' + row.username + ' 么?',function(r){
+	                    if (r){
+	                        $.post('/admin/service/deleteUserByName/' + row.username,{username:row.username},function(result){
+	                            if (result.success){
+	                                $('#dg').datagrid('reload');    // reload the user data
+	                                $.messager.show({    
+	                                    title: '提示',
+	                                    msg: '账号 ' + row.username + ' 删除成功!'
+	                                });
+	                            } else {
+	                                $.messager.show({    // show error message
+	                                    title: 'Error',
+	                                    msg: result.errorMsg
+	                                });
+	                            }
+	                        },'json');
+	                    }
+	                });
+                }
             }
         }
         //格式化身份类型

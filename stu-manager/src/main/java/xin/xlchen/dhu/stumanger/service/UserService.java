@@ -123,6 +123,10 @@ public class UserService {
     		if (getUserInfo(user.getUsername()) == null) {
     			mResult.setSuccess(false);
     			mResult.setErrorMsg("账号["+user.getUsername()+"]已经不存在!");
+    		} else if (user.getUsername() != null && user.getUsername().equalsIgnoreCase("admin")) {
+    			///admin账号不允许变更资料
+    			mResult.setSuccess(false);
+    			mResult.setErrorMsg("admin账号不允许变更资料!");
     		} else {
     			//编辑
     			userMapper.editUser(user);
