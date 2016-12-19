@@ -54,8 +54,8 @@
 		<div class="easyui-accordion" fit="true" border="false">
 				<div title="教务管理">
 					<a href="javascript:void(0);" src="/admin/stuadmin/studentpage" class="cs-navi-tab">学生管理</a></p>
-					<a href="javascript:void(0);" src="demo/draggable.html" class="cs-navi-tab">学籍管理</a></p>
-					<a href="javascript:void(0);" src="demo/droppable.html" class="cs-navi-tab">课程管理</a></p>
+					<a href="javascript:void(0);" src="/admin/stuadmin/termpage" class="cs-navi-tab">学籍管理</a></p>
+					<a href="javascript:void(0);" src="/admin/stuadmin/coursepage" class="cs-navi-tab">课程管理</a></p>
 					<a href="javascript:void(0);" src="demo/droppable1.html" class="cs-navi-tab">成绩管理</a></p>
 				</div>
 				<div title="报表中心">

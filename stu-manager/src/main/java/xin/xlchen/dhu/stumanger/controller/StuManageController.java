@@ -38,4 +38,28 @@ public class StuManageController {
     	logger.info("[openStudentpage]打开学生管理界面!");
    		return "stuadmin/studentpage";
     }
+    
+    /**
+     * 学籍管理页面
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value={"/admin/stuadmin/termpage"})
+    public String openTermpage(ModelMap model, HttpServletRequest request) {
+    	logger.info("[openTermpage]打开学籍管理界面!");
+    	return "stuadmin/termpage";
+    }
+    
+    /**
+     * 课程管理页面
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value={"/admin/stuadmin/coursepage"})
+    public String openCoursepage(ModelMap model, HttpServletRequest request) {
+    	logger.info("[openCoursepage]打开课程管理界面!");
+    	return "stuadmin/coursepage";
+    }
 }

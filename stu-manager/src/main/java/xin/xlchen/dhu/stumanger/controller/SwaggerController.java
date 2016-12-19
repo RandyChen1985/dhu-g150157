@@ -2,6 +2,8 @@ package xin.xlchen.dhu.stumanger.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -230,8 +232,13 @@ public class SwaggerController {
     @RequestMapping(value="/addTerm",method=RequestMethod.POST)
     public MResult addTerm(@RequestParam String termId,
     		@RequestParam String termName,
-    		@RequestParam String termNotes,
-    		@RequestParam String createUser){
+    		@RequestParam String termNotes,HttpServletRequest request){
+    	////
+		String createUser = "N/A";
+		MUser user = (MUser)request.getSession().getAttribute("user");
+		if (user != null) {
+			createUser = user.getUsername() + "(" + user.getRealname() + ")";
+		}
     	//构建对象
         MTerm mterm = new MTerm();
         mterm.setTermId(termId);
@@ -249,8 +256,13 @@ public class SwaggerController {
     @RequestMapping(value="/editTerm",method=RequestMethod.POST)
     public MResult editTerm(@RequestParam String termId,
     		@RequestParam String termName,
-    		@RequestParam String termNotes,
-    		@RequestParam String createUser){
+    		@RequestParam String termNotes,HttpServletRequest request){
+    	///
+		String createUser = "N/A";
+		MUser user = (MUser)request.getSession().getAttribute("user");
+		if (user != null) {
+			createUser = user.getUsername() + "(" + user.getRealname() + ")";
+		}
     	//构建对象
         MTerm mterm = new MTerm();
         mterm.setTermId(termId);
@@ -290,8 +302,13 @@ public class SwaggerController {
 	@ApiOperation(value="添加课程基础数据",notes="需要课程编号,名称等...")
 	@RequestMapping(value="/addCourse",method=RequestMethod.POST)
 	public MResult addCourse(@RequestParam String courseName,
-		@RequestParam String courseNotes,
-		@RequestParam String createUser){
+		@RequestParam String courseNotes,HttpServletRequest request){
+		String createUser = "N/A";
+		MUser user = (MUser)request.getSession().getAttribute("user");
+		if (user != null) {
+			createUser = user.getUsername() + "(" + user.getRealname() + ")";
+		}
+		
 		//构建对象
 		MCourse mcourse = new MCourse();
 		mcourse.setCourseName(courseName);
@@ -307,9 +324,13 @@ public class SwaggerController {
 	@ApiOperation(value="编辑课程基础数据",notes="需要课程编号,名称等...")
 	@RequestMapping(value="/editCourse",method=RequestMethod.POST)
 	public MResult editCourse(@RequestParam String courseId,
-		@RequestParam String courseName,
-		@RequestParam String courseNotes,
-		@RequestParam String createUser){
+		@RequestParam String courseName,@RequestParam String courseNotes,HttpServletRequest request){
+		///
+		String createUser = "N/A";
+		MUser user = (MUser)request.getSession().getAttribute("user");
+		if (user != null) {
+			createUser = user.getUsername() + "(" + user.getRealname() + ")";
+		}
 		//构建对象
 		MCourse mcourse = new MCourse();
 		mcourse.setCourseId(courseId);

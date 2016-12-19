@@ -23,6 +23,8 @@ public class MTerm implements Serializable {
 	private String termNotes;	//学年备注
 	private String createTime;	//添加时间
 	private String createUser;	//添加人
+	private String op = "<a href=\"javascript:void(0)\"  onclick=\"newTermCourseDispatcher()\">设置课程</a>";    //操作
+	
 	public String getTermId() {
 		return termId;
 	}
@@ -55,6 +57,12 @@ public class MTerm implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getOp() {
+		return op;
+	}
+	public void setOp(String op) {
+		this.op = op;
 	}
 	@Override
 	public String toString() {

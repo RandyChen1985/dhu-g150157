@@ -38,7 +38,7 @@
   <!-- 编辑课程信息 -->
   <update id="editCourse" parameterType="xin.xlchen.dhu.stumanger.model.MCourse">
    		   		 update t_course
-   		   		 set courseName = #{courseName},courseNotes=#{courseNotes}
+   		   		 set courseName = #{courseName},courseNotes=#{courseNotes},createUser=#{createUser}
    		   		 where courseId = #{courseId}
   </update>
  
