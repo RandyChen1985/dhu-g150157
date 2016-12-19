@@ -8,7 +8,7 @@ package xin.xlchen.dhu.stumanger.mapper;
 
 import java.util.List;
 
-import xin.xlchen.dhu.stumanger.model.Logs;
+import xin.xlchen.dhu.stumanger.model.MLogs;
 
 /**
  * 类说明
@@ -19,6 +19,6 @@ import xin.xlchen.dhu.stumanger.model.Logs;
  * @修改时间：2016-11-28 下午8:49:42
  */
 public interface LogsMapper {
-	 public List<Logs> findAllLogs();
-	 public void saveLogs(Logs logs);
+	 public List<MLogs> findAllLogs();
+	 public void saveLogs(MLogs logs);
 }

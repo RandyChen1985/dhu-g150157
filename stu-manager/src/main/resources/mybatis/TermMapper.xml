@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xin.xlchen.dhu.stumanger.mapper.TermMapper">
+ 
+  <!-- 查询所有学年数据 -->
+  <select id="findAllTerms" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.MTerm">
+   		 select * from t_term
+  </select>
+  
+  <!-- 查询某指定学年数据- -->
+  <select id="getTermbyId" parameterType="java.lang.String" resultType="xin.xlchen.dhu.stumanger.model.MTerm">
+   		 select * from t_term where termId = #{termId}
+  </select>
+  
+  <!-- 删除学年信息 -->
+  <delete id="deleteTerm" parameterType="java.lang.String">
+   		 delete from t_term
+   		 where termId = #{termId}
+  </delete>
+  
+  <!-- 添加学年信息 -->
+  <insert id="addTerm" parameterType="xin.xlchen.dhu.stumanger.model.MTerm">
+   		   		 insert into t_term
+   		   		 (
+		   		 termId, 
+		   		 termName,
+		   		 termNotes,
+		   		 createUser,
+		   		 createTime
+	   		 	 ) 
+		   		 values
+		   		 (
+		   		 #{termId}, 
+		   		 #{termName}, 
+		   		 #{termNotes}, 
+		   		 #{createUser}, 
+		   		 now()
+		   		 )
+   </insert>
+  <!-- 编辑学年信息 -->
+  <update id="editTerm" parameterType="xin.xlchen.dhu.stumanger.model.MTerm">
+   		   		 update t_term
+   		   		 set termName = #{termName},termNotes=#{termNotes}
+   		   		 where termId = #{termId}
+  </update>
+ 
+ 
+</mapper>

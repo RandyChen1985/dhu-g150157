@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import xin.xlchen.dhu.stumanger.mapper.StudentMapper;
 import xin.xlchen.dhu.stumanger.model.MResult;
-import xin.xlchen.dhu.stumanger.model.Student;
+import xin.xlchen.dhu.stumanger.model.MStudent;
 
 
 @Service
@@ -22,9 +22,9 @@ public class StudentService {
      * 获取所有学生数据
      * @return
      */
-    public List<Student> getAllStudent(){
+    public List<MStudent> getAllStudent(){
     	//查询数据
-    	List<Student> studentList=studentMapper.findAllStudent();
+    	List<MStudent> studentList=studentMapper.findAllStudent();
     	return studentList;
     }
     
@@ -33,12 +33,12 @@ public class StudentService {
      * @param studentId
      * @return
      */
-    public Student getStudentById(String studentId){
+    public MStudent getStudentById(String studentId){
     	//构建参数
     	Map<String, String> params = new HashMap<String, String>();
     	params.put("studentId", studentId);
     	//查询数据
-        Student student=studentMapper.findStudentById(params);
+        MStudent student=studentMapper.findStudentById(params);
         return student;
     }
     
@@ -70,7 +70,7 @@ public class StudentService {
      * @param user
      * @return
      */
-    public MResult addStudent(Student student){
+    public MResult addStudent(MStudent student){
     	MResult mResult = new MResult();
     	try {
     		//判断用户是否已存在
@@ -93,7 +93,7 @@ public class StudentService {
      * @param user
      * @return
      */
-    public MResult editStudent(Student student){
+    public MResult editStudent(MStudent student){
     	MResult mResult = new MResult();
     	try {
     		//判断用户是否已存在

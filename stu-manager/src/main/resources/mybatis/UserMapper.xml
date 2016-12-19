@@ -3,7 +3,7 @@
 <mapper namespace="xin.xlchen.dhu.stumanger.mapper.UserMapper">
  
   <!-- 查询所有用户 -->
-  <select id="findAllUserInfo" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.User">
+  <select id="findAllUserInfo" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.MUser">
    		 select * from t_user
    		  <where>
                 <if test="username != null and username != ''">
@@ -13,7 +13,7 @@
   </select>
   
   <!-- 根据账号名查询用户 -->
-  <select id="findUserInfoByUserName" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.User">
+  <select id="findUserInfoByUserName" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.MUser">
    		 select * from t_user
    		 where username = #{username}
   </select>
@@ -32,7 +32,7 @@
   </delete>
   
   <!-- 添加用户信息 -->
-  <insert id="addUser" parameterType="xin.xlchen.dhu.stumanger.model.User">
+  <insert id="addUser" parameterType="xin.xlchen.dhu.stumanger.model.MUser">
    		   		 insert into t_user
    		   		 (
 		   		 username, 
@@ -51,14 +51,14 @@
 		   		 )
    </insert>
   <!-- 编辑用户信息 -->
-  <update id="editUser" parameterType="xin.xlchen.dhu.stumanger.model.User">
+  <update id="editUser" parameterType="xin.xlchen.dhu.stumanger.model.MUser">
    		   		 update t_user
    		   		 set realname = #{realname},user_type=#{user_type}
    		   		 where username = #{username}
   </update>
   
   <!-- 编辑用户密码 -->
-  <update id="updateUserPasswd" parameterType="xin.xlchen.dhu.stumanger.model.User">
+  <update id="updateUserPasswd" parameterType="xin.xlchen.dhu.stumanger.model.MUser">
    		   		 update t_user
    		   		 set password = #{password}
    		   		 where username = #{username}

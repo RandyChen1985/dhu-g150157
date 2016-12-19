@@ -14,8 +14,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import xin.xlchen.dhu.stumanger.model.Logs;
-import xin.xlchen.dhu.stumanger.model.User;
+import xin.xlchen.dhu.stumanger.model.MLogs;
+import xin.xlchen.dhu.stumanger.model.MUser;
 import xin.xlchen.dhu.stumanger.service.LogsService;
 import xin.xlchen.dhu.stumanger.service.UserService;
 import xin.xlchen.dhu.stumanger.util.StuManagerConstants;
@@ -60,7 +60,7 @@ public class IndexController {
     	logger.info("[logincheck]username:" + username);
     	logger.info("[logincheck]password md5:" + myPasswdMd5);
     	//
-    	User user = userService.getUserInfo(username);
+    	MUser user = userService.getUserInfo(username);
     	if (user != null && user.getUsername().trim().equalsIgnoreCase(username)
     					 && user.getPassword().trim().equalsIgnoreCase(myPasswdMd5)) {
     		logger.info("[logincheck]登录验证成功," + user.toString());
@@ -69,7 +69,7 @@ public class IndexController {
     		request.getSession().setAttribute("user", user);
     		
     		//记录登录成功日志
-    		Logs logs = new Logs();
+    		MLogs logs = new MLogs();
     		logs.setUsername(username);
     		logs.setLogstatus(StuManagerConstants.opp_status_ok);
     		logs.setLogtype(StuManagerConstants.logtype_login);
@@ -93,7 +93,7 @@ public class IndexController {
     			notes = "密码错误!";
     		}
     		//记录登录失败日志
-    		Logs logs = new Logs();
+    		MLogs logs = new MLogs();
     		logs.setUsername(username);
     		logs.setLogstatus(StuManagerConstants.opp_statuc_fail);
     		logs.setLogtype(StuManagerConstants.logtype_login);
@@ -122,7 +122,7 @@ public class IndexController {
     	request.getSession().invalidate();
     	
 		//记录登出成功日志
-		Logs logs = new Logs();
+		MLogs logs = new MLogs();
 		logs.setUsername(username);
 		logs.setLogstatus(StuManagerConstants.opp_status_ok);
 		logs.setLogtype(StuManagerConstants.logtype_logout);
@@ -144,7 +144,7 @@ public class IndexController {
     @RequestMapping(value={"/admin/main"})
    	public String mainpage(ModelMap model, HttpServletRequest request) {
     	//判断是否已登录
-    	User user = (User)request.getSession().getAttribute("user");
+    	MUser user = (MUser)request.getSession().getAttribute("user");
     	if (user == null) {
     		//用户未登录或会话过期
     		logger.info("[mainpage]用户未登录或会话过期,跳转到登录界面!");

@@ -3,12 +3,12 @@
 <mapper namespace="xin.xlchen.dhu.stumanger.mapper.LogsMapper">
  
   <!-- 查询所有日志 -->
-  <select id="findAllLogs" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.Logs">
+  <select id="findAllLogs" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.MLogs">
    		 select * from t_logs ORDER BY logtime DESC
   </select>
   
   <!-- 保存日志 -->
-  <insert id="saveLogs" parameterType="xin.xlchen.dhu.stumanger.model.Logs">
+  <insert id="saveLogs" parameterType="xin.xlchen.dhu.stumanger.model.MLogs">
    		 insert into t_logs(
    		 username, 
    		 logtype,

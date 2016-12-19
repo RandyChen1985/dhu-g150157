@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @邮箱： cexlong@163.com
  * @修改时间：2016-12-3 上午9:46:03
  */
-public class Student implements Serializable{
+public class MStudent implements Serializable{
 	private static final long serialVersionUID = -5434084974146824071L;
 
 	private String studentId;	//学生编号

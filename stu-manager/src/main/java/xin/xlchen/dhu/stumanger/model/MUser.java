@@ -2,7 +2,7 @@ package xin.xlchen.dhu.stumanger.model;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class MUser implements Serializable {
 	private static final long serialVersionUID = -4173839866076450913L;
 	private String id;
     private String username;

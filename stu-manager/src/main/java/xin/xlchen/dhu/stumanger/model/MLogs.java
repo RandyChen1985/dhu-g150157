@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @邮箱： cexlong@163.com
  * @修改时间：2016-11-28 下午8:45:47
  */
-public class Logs implements Serializable {
+public class MLogs implements Serializable {
 	private static final long serialVersionUID = 5812838750368940740L;
 	private String id; 
 	private String username;	//账号名

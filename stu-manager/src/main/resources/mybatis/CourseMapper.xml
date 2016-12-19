@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xin.xlchen.dhu.stumanger.mapper.CourseMapper">
+ 
+  <!-- 查询所有课程数据 -->
+  <select id="findAllCourses" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.MCourse">
+   		 select * from t_course
+  </select>
+  
+  <!-- 查询某指定课程数据- -->
+  <select id="getCoursebyId" parameterType="java.lang.String" resultType="xin.xlchen.dhu.stumanger.model.MCourse">
+   		 select * from t_course where courseId = #{courseId}
+  </select>
+  
+  <!-- 删除课程信息 -->
+  <delete id="deleteCourse" parameterType="java.lang.String">
+   		 delete from t_course
+   		 where courseId = #{courseId}
+  </delete>
+  
+  <!-- 添加课程信息 -->
+  <insert id="addCourse" parameterType="xin.xlchen.dhu.stumanger.model.MCourse">
+   		   		 insert into t_course
+   		   		 (
+		   		 courseName,
+		   		 courseNotes,
+		   		 createUser,
+		   		 createTime
+	   		 	 ) 
+		   		 values
+		   		 (
+		   		 #{courseName}, 
+		   		 #{courseNotes}, 
+		   		 #{createUser}, 
+		   		 now()
+		   		 )
+   </insert>
+  <!-- 编辑课程信息 -->
+  <update id="editCourse" parameterType="xin.xlchen.dhu.stumanger.model.MCourse">
+   		   		 update t_course
+   		   		 set courseName = #{courseName},courseNotes=#{courseNotes}
+   		   		 where courseId = #{courseId}
+  </update>
+ 
+ 
+</mapper>

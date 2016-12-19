@@ -3,7 +3,7 @@
 <mapper namespace="xin.xlchen.dhu.stumanger.mapper.StudentMapper">
  
   <!-- 查询所有学生信息 -->
-  <select id="findAllStudent" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.Student">
+  <select id="findAllStudent" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.MStudent">
    		 select * from t_student
    		  <where>
                 <if test="studentId != null and studentId != ''">
@@ -13,7 +13,7 @@
   </select>
   
    <!-- 根据ID查询所有学生信息 -->
-  <select id="findStudentById" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.Student">
+  <select id="findStudentById" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.MStudent">
    		 select * from t_student
 		 where studentId = #{studentId}
   </select>
@@ -25,7 +25,7 @@
   </delete>
   
   <!-- 添加学生信息 -->
-  <insert id="addStudent" parameterType="xin.xlchen.dhu.stumanger.model.Student">
+  <insert id="addStudent" parameterType="xin.xlchen.dhu.stumanger.model.MStudent">
    		   		 insert into t_student
    		   		 (
 		   		 studentId, 
@@ -50,7 +50,7 @@
 		   		 )
    </insert>
   <!-- 编辑学生信息 -->
-  <update id="editStudent" parameterType="xin.xlchen.dhu.stumanger.model.Student">
+  <update id="editStudent" parameterType="xin.xlchen.dhu.stumanger.model.MStudent">
    		   		 update t_student
    		   		 set stuName = #{stuName},
    		   		 	stuGendar=#{stuGendar},

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import xin.xlchen.dhu.stumanger.mapper.LogsMapper;
-import xin.xlchen.dhu.stumanger.model.Logs;
+import xin.xlchen.dhu.stumanger.model.MLogs;
 
 
 @Service
@@ -20,7 +20,7 @@ public class LogsService {
      * 获取所有操作日志
      * @return
      */
-    public List<Logs> getAllLogs(){
+    public List<MLogs> getAllLogs(){
     	//查询数据
     	return logsMapper.findAllLogs();
     }
@@ -29,7 +29,7 @@ public class LogsService {
      * 保存日志
      * @param logs
      */
-    public void saveLogs(Logs logs) {
+    public void saveLogs(MLogs logs) {
     	logsMapper.saveLogs(logs);
     	logger.info("[saveLogs]日志保存成功,logs:" + logs.toString());
     }

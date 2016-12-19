@@ -9,7 +9,7 @@ package xin.xlchen.dhu.stumanger.mapper;
 import java.util.List;
 import java.util.Map;
 
-import xin.xlchen.dhu.stumanger.model.Student;
+import xin.xlchen.dhu.stumanger.model.MStudent;
 
 /**
  * 类说明
@@ -19,9 +19,9 @@ import xin.xlchen.dhu.stumanger.model.Student;
  * @修改时间：2016-12-3 上午10:02:22
  */
 public interface StudentMapper {
-	public Student findStudentById(Map<String, String> params);
-	public List<Student> findAllStudent();
+	public MStudent findStudentById(Map<String, String> params);
+	public List<MStudent> findAllStudent();
 	public void deleteStudent(Map<String, String> params);
-    public void addStudent(Student student);
-    public void editStudent(Student student);
+    public void addStudent(MStudent student);
+    public void editStudent(MStudent student);
 }

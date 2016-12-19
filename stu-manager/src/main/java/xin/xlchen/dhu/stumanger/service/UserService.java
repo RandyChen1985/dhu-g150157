@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import xin.xlchen.dhu.stumanger.mapper.UserMapper;
 import xin.xlchen.dhu.stumanger.model.MResult;
-import xin.xlchen.dhu.stumanger.model.User;
+import xin.xlchen.dhu.stumanger.model.MUser;
 import xin.xlchen.dhu.stumanger.util.StuManagerUtils;
 
 
@@ -24,12 +24,12 @@ public class UserService {
      * @param username
      * @return
      */
-    public User getUserInfo(String username){
+    public MUser getUserInfo(String username){
     	//构建参数
     	Map<String, String> params = new HashMap<String, String>();
     	params.put("username", username);
     	//查询数据
-        User user=userMapper.findUserInfoByUserName(params);
+        MUser user=userMapper.findUserInfoByUserName(params);
         return user;
     }
     
@@ -37,9 +37,9 @@ public class UserService {
      * 获取所有用户数据
      * @return
      */
-    public List<User> getAllUserInfo(){
+    public List<MUser> getAllUserInfo(){
     	//查询数据
-    	List<User> userList=userMapper.findAllUserInfo();
+    	List<MUser> userList=userMapper.findAllUserInfo();
     	return userList;
     }
 
@@ -91,7 +91,7 @@ public class UserService {
      * @param user
      * @return
      */
-    public MResult addUser(User user){
+    public MResult addUser(MUser user){
     	MResult mResult = new MResult();
     	try {
     		//判断用户是否已存在
@@ -116,7 +116,7 @@ public class UserService {
      * @param user
      * @return
      */
-    public MResult editUser(User user){
+    public MResult editUser(MUser user){
     	MResult mResult = new MResult();
     	try {
     		//判断用户是否已存在
@@ -143,7 +143,7 @@ public class UserService {
      * @param user
      * @return
      */
-    public MResult updateUserPasswd(User user){
+    public MResult updateUserPasswd(MUser user){
     	MResult mResult = new MResult();
     	try {
     		//判断用户是否已存在
