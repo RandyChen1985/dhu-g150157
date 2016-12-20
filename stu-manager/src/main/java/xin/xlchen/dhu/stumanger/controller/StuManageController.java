@@ -62,4 +62,16 @@ public class StuManageController {
     	logger.info("[openCoursepage]打开课程管理界面!");
     	return "stuadmin/coursepage";
     }
+    
+    /**
+     * 分数管理页面
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value={"/admin/stuadmin/scorepage"})
+    public String openScorepage(ModelMap model, HttpServletRequest request) {
+    	logger.info("[openScorepage]打开分数管理界面!");
+    	return "stuadmin/scorepage";
+    }
 }

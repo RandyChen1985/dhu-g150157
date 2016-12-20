@@ -15,11 +15,13 @@ import xin.xlchen.dhu.stumanger.model.MCourse;
 import xin.xlchen.dhu.stumanger.model.MLogs;
 import xin.xlchen.dhu.stumanger.model.MRelTermCourse;
 import xin.xlchen.dhu.stumanger.model.MResult;
+import xin.xlchen.dhu.stumanger.model.MScore;
 import xin.xlchen.dhu.stumanger.model.MStudent;
 import xin.xlchen.dhu.stumanger.model.MTerm;
 import xin.xlchen.dhu.stumanger.model.MUser;
 import xin.xlchen.dhu.stumanger.service.CourseService;
 import xin.xlchen.dhu.stumanger.service.LogsService;
+import xin.xlchen.dhu.stumanger.service.ScoreService;
 import xin.xlchen.dhu.stumanger.service.StudentService;
 import xin.xlchen.dhu.stumanger.service.TermService;
 import xin.xlchen.dhu.stumanger.service.UserService;
@@ -48,6 +50,9 @@ public class SwaggerController {
 
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired
+	private ScoreService scoreService;
 	
 	
 	
@@ -404,5 +409,69 @@ public class SwaggerController {
 	@RequestMapping(value="/getCourseNotInTerm",method=RequestMethod.GET)
 	public List<MCourse> getCourseNotInTerm(@RequestParam String termId){
 		return termService.getCourseNotInTerm(termId);
+	}
+	
+	
+	/////////////////////// 学生分数数据 //////////////////////////////
+	/**
+     *获取所有学生分数
+     * @return
+     */
+    @ApiOperation(value="获取所有学生分数",notes="requires noting")
+    @RequestMapping(value="/getStudentScores",method=RequestMethod.GET)
+    public List<MScore> getStudentScores(){
+       return scoreService.findAllScores();
+    }
+    
+	/**
+	* 添加学生的分数信息
+	* @return
+	*/
+	@ApiOperation(value="添加学生的分数信息",notes="需要学籍id,课程id,学生id,分数等...")
+	@RequestMapping(value="/addStudentScore",method=RequestMethod.POST)
+	public MResult addStudentScore(@RequestParam String termId,
+								   @RequestParam String courseId,
+								   @RequestParam String studentId,
+								   @RequestParam String score,HttpServletRequest request){
+		String createUser = "N/A";
+		MUser user = (MUser)request.getSession().getAttribute("user");
+		if (user != null) {
+			createUser = user.getUsername() + "(" + user.getRealname() + ")";
+		}
+		
+		//构建对象
+		MScore mScore = new MScore();
+		mScore.setTermId(termId);
+		mScore.setCourseId(courseId);
+		mScore.setStudentId(studentId);
+		mScore.setScore(Integer.valueOf(score));
+		mScore.setCreateUser(createUser);
+		return scoreService.addStudentScore(mScore);
+	}
+	
+	/**
+	 * 修改学生的分数信息
+	 * @return
+	 */
+	@ApiOperation(value="修改学生的分数信息",notes="需要学籍id,课程id,学生id,分数等...")
+	@RequestMapping(value="/editStudentScore",method=RequestMethod.POST)
+	public MResult editStudentScore(@RequestParam String termId,
+			@RequestParam String courseId,
+			@RequestParam String studentId,
+			@RequestParam String score,HttpServletRequest request){
+		String createUser = "N/A";
+		MUser user = (MUser)request.getSession().getAttribute("user");
+		if (user != null) {
+			createUser = user.getUsername() + "(" + user.getRealname() + ")";
+		}
+		
+		//构建对象
+		MScore mScore = new MScore();
+		mScore.setTermId(termId);
+		mScore.setCourseId(courseId);
+		mScore.setStudentId(studentId);
+		mScore.setScore(Integer.valueOf(score));
+		mScore.setCreateUser(createUser);
+		return scoreService.editStudentScore(mScore);
 	}
 }

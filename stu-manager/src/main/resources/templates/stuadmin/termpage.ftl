@@ -133,7 +133,7 @@
     	var row1 = $("#inr").datagrid('getSelected');
 
         if (row1){
-		    $.messager.confirm('确认','真的要删除课程ID ' + row1.courseId + ' 么?',function(r){
+		    $.messager.confirm('确认','真的要删除课程 ' + row1.courseName + ' 么?',function(r){
 		        if (r){
 		            $.post('/admin/service/removeTermCourse',{termId:row.termId,courseId:row1.courseId},function(result){
 		                if (result.success){
@@ -141,7 +141,7 @@
 	        				$('#notr').datagrid('reload');
 		                    $.messager.show({    
 		                        title: '提示',
-		                        msg: '课程编号 ' + row.courseId + ' 删除成功!'
+		                        msg: '课程 ' + row1.courseName + ' 删除成功!'
 		                    });
 		                } else {
 		                    $.messager.show({    // show error message

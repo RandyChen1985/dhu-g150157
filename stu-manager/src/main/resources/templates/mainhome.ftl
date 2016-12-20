@@ -56,7 +56,7 @@
 					<a href="javascript:void(0);" src="/admin/stuadmin/studentpage" class="cs-navi-tab">学生管理</a></p>
 					<a href="javascript:void(0);" src="/admin/stuadmin/termpage" class="cs-navi-tab">学籍管理</a></p>
 					<a href="javascript:void(0);" src="/admin/stuadmin/coursepage" class="cs-navi-tab">课程管理</a></p>
-					<a href="javascript:void(0);" src="demo/droppable1.html" class="cs-navi-tab">成绩管理</a></p>
+					<a href="javascript:void(0);" src="/admin/stuadmin/scorepage" class="cs-navi-tab">成绩管理</a></p>
 				</div>
 				<div title="报表中心">
 					<a href="javascript:void(0);" src="http://echarts.baidu.com/gallery/editor.html?c=bar-gradient" class="cs-navi-tab">成绩排名</a></p>

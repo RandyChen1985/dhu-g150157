@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xin.xlchen.dhu.stumanger.mapper.ScoreMapper">
+ 
+  <!-- 查询所有学生成绩 -->
+  <select id="findAllScores" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.MScore">
+   		SELECT t1.termName,t2.courseName,t3.stuName,t4.score,t4.createTime,t4.createUser,t4.courseId,t4.studentId,t4.termId
+		FROM t_term t1, t_course t2,t_student t3, t_scores t4
+		where t1.termId = t4.termId
+		and t2.courseId = t4.courseId
+		and t3.studentId = t4.studentId
+		ORDER BY t1.createTime DESC
+  </select>
+  
+  <!-- 添加学生分数信息 -->
+  <insert id="addStudentScore" parameterType="xin.xlchen.dhu.stumanger.model.MScore">
+   		   		 insert into t_scores
+   		   		 (
+		   		 studentId,
+		   		 termId,
+		   		 courseId,
+		   		 score,
+		   		 createUser,
+		   		 createTime
+	   		 	 ) 
+		   		 values
+		   		 (
+		   		 #{studentId}, 
+		   		 #{termId}, 
+		   		 #{courseId}, 
+		   		 #{score}, 
+		   		 #{createUser}, 
+		   		 now()
+		   		 )
+   </insert>
+   
+  <!-- 更新学生分数信息 -->
+  <update id="editStudentScore" parameterType="xin.xlchen.dhu.stumanger.model.MScore">
+   		   		 update t_scores
+   		   		 set score = #{score},createTime=now(),createUser=#{createUser}
+   		   		 where studentId = #{studentId} and termId = #{termId} and courseId = #{courseId}
+   </update>
+</mapper>
