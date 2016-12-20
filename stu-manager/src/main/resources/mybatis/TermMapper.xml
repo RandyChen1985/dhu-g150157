@@ -45,4 +45,40 @@
   </update>
  
  
+  <!-- 查询指定学期已分配的课程列表 -->
+  <select id="getCourseInTerm" parameterType="java.lang.String" resultType="xin.xlchen.dhu.stumanger.model.MCourse">
+   		 SELECT t1.* from t_course t1, t_rel_term_course t2
+		 WHERE t1.courseId = t2.course_id
+		 and t2.term_id = #{termId}
+  </select>
+  
+  <!-- 查询指定学期未分配的课程列表 -->
+  <select id="getCourseNotInTerm" parameterType="java.lang.String" resultType="xin.xlchen.dhu.stumanger.model.MCourse">
+   		SELECT t1.* from t_course t1 
+		where t1.courseId not in (SELECT t2.course_id from t_rel_term_course t2 where t2.term_id = #{termId}) 
+  </select>
+  
+  <!-- 获取已在使用的学籍计数 -->
+  <select id="getUsedTermCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+   		 SELECT count(*) as cnt from t_rel_term_course where term_id = #{termId};
+  </select>
+  
+  <!-- 学籍添加课程 -->
+  <insert id="addTermCourse" parameterType="xin.xlchen.dhu.stumanger.model.MRelTermCourse">
+   		   		 insert into t_rel_term_course
+   		   		 (
+		   		 term_id, 
+		   		 course_id
+	   		 	 ) 
+		   		 values
+		   		 (
+		   		 #{termId}, 
+		   		 #{courseId}
+		   		 )
+   </insert>
+  <!-- 学籍删除课程 -->
+  <delete id="removeTermCourse" parameterType="xin.xlchen.dhu.stumanger.model.MRelTermCourse">
+   		 delete from t_rel_term_course
+   		 where term_id = #{termId} and course_id=#{courseId}
+  </delete>
 </mapper>

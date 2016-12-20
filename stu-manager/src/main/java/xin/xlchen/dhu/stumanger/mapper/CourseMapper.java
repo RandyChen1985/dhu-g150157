@@ -11,4 +11,5 @@ public interface CourseMapper {
     public void addCourse(MCourse course);
     public void editCourse(MCourse course);
     public void deleteCourse(String courseId);
+    public int getUsedCourseCount(String courseId);
 }

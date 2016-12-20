@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import xin.xlchen.dhu.stumanger.model.MCourse;
 import xin.xlchen.dhu.stumanger.model.MLogs;
+import xin.xlchen.dhu.stumanger.model.MRelTermCourse;
 import xin.xlchen.dhu.stumanger.model.MResult;
 import xin.xlchen.dhu.stumanger.model.MStudent;
 import xin.xlchen.dhu.stumanger.model.MTerm;
@@ -284,6 +285,39 @@ public class SwaggerController {
         return result;
     }
     
+    
+    /**
+     * 学籍添加课程
+     * @return
+     */
+    @ApiOperation(value="学籍添加课程",notes="需要学年编号,课程编号等...")
+    @RequestMapping(value="/addTermCourse",method=RequestMethod.POST)
+    public MResult addTermCourse(@RequestParam String termId,
+    		@RequestParam String courseId){
+    	//构建对象
+        MRelTermCourse mRelTermCourse = new MRelTermCourse();
+        mRelTermCourse.setCourseId(courseId);
+        mRelTermCourse.setTermId(termId);
+        //添加
+    	return termService.addTermCourse(mRelTermCourse);
+    }
+    
+    /**
+     * 学籍删除课程
+     * @return
+     */
+    @ApiOperation(value="学籍添加课程",notes="需要学年编号,课程编号等...")
+    @RequestMapping(value="/removeTermCourse",method=RequestMethod.POST)
+    public MResult removeTermCourse(@RequestParam String termId,
+    		@RequestParam String courseId){
+    	//构建对象
+        MRelTermCourse mRelTermCourse = new MRelTermCourse();
+        mRelTermCourse.setCourseId(courseId);
+        mRelTermCourse.setTermId(termId);
+        //添加
+    	return termService.removeTermCourse(mRelTermCourse);
+    }
+    
 	/////////////////////// 课程基础管理数据 //////////////////////////////
 	/**
 	*获取所有课程基础数据
@@ -350,5 +384,25 @@ public class SwaggerController {
 	public MResult deleteCourseById(@PathVariable String courseId){
 		MResult result =  courseService.deleteCourse(courseId);
 		return result;
+	}
+	///////////学籍课程分配/////////
+	/**
+	*获取指定学期已分配的课程列表
+	* @return
+	*/
+	@ApiOperation(value="获取指定学期已分配的课程列表",notes="requires noting")
+	@RequestMapping(value="/getCourseInTerm",method=RequestMethod.GET)
+	public List<MCourse> getCourseInTerm(@RequestParam String termId){
+		return termService.getCourseInTerm(termId);
+	}
+	
+	/**
+	*获取指定学期未分配的课程列表
+	* @return
+	*/
+	@ApiOperation(value="获取指定学期未分配的课程列表",notes="requires noting")
+	@RequestMapping(value="/getCourseNotInTerm",method=RequestMethod.GET)
+	public List<MCourse> getCourseNotInTerm(@RequestParam String termId){
+		return termService.getCourseNotInTerm(termId);
 	}
 }

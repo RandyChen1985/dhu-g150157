@@ -132,9 +132,6 @@
         <form id="fm-add" method="post" novalidate style="margin:0;padding:20px 50px">
             <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">课程信息</div>
             <div style="margin-bottom:10px">
-                <input name="courseId" class="easyui-textbox" required="true" label="课程编号:" style="width:100%">
-            </div>
-            <div style="margin-bottom:10px">
                 <input name="courseName" class="easyui-textbox" required="true" label="课程名称:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">

@@ -41,10 +41,16 @@ public class CourseService {
     public MResult deleteCourse(String courseId){
     	MResult mResult = new MResult();
     	try {
-        	//删除数据
-        	courseMapper.deleteCourse(courseId);
-            //
-            mResult.setSuccess(true);
+    		if (courseMapper.getUsedCourseCount(courseId) > 0) {
+    			///课程已在使用中,不允许删除
+    			mResult.setSuccess(false);
+    			mResult.setErrorMsg("课程已在使用中,不允许删除!");
+    		} else {
+	        	//删除数据
+	        	courseMapper.deleteCourse(courseId);
+	            //
+	            mResult.setSuccess(true);
+    		}
 		} catch (Exception e) {
 			mResult.setSuccess(false);
 			mResult.setErrorMsg(e.getMessage());

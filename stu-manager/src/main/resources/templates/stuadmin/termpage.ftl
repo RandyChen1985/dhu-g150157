@@ -16,10 +16,6 @@
             $('#fm-add').form('clear');
             url = '/admin/service/addTerm';
         }
-        //打开新增课程分配信息框
-        function newTermCourseDispatcher(){
-            $('#dlg-courseSetting').dialog('open').dialog('center').dialog('setTitle','分配课程');
-        }
         //编辑学籍
         function editTerm(){
             var row = $('#dg').datagrid('getSelected');
@@ -107,16 +103,16 @@
                 });
             }
         }
-    ////////
-    function conRole(){
+    //打开新增课程分配信息框
+    function newTermCourseDispatcher(){
     	var row = $("#dg").datagrid('getSelected');
 		if(row){
-			$("#aur").dialog("open").dialog("setTitle","角色功能操作");
+			$('#dlg-courseSetting').dialog('open').dialog('center').dialog('setTitle','分配课程');
 			$('#inr').datagrid({    
-			    url:'../do/user/inRole?userid='+row.id,        
+			    url:'/admin/service/getCourseInTerm?termId='+row.termId,        
 			});
 			$('#notr').datagrid({    
-			    url:'../do/user/notRole?userid='+row.id,        
+			    url:'/admin/service/getCourseNotInTerm?termId='+row.termId,        
 			});
 			}
 	}
@@ -125,23 +121,39 @@
     	var row = $("#dg").datagrid('getSelected'); 
     	var row1 = $("#notr").datagrid('getSelected');
     	if(row1){
-    	 $.post('../do/user/addRoleUser',{userId:row.id,roleId:row1.id},function(result){
-    	$('#inr').datagrid('reload');
-        	$('#notr').datagrid('reload');
-    	},'json');
+    	 	$.post('/admin/service/addTermCourse',{termId:row.termId,courseId:row1.courseId},function(result){
+    			$('#inr').datagrid('reload');
+        		$('#notr').datagrid('reload');
+    		},'json');
     	}
     }
     
    function rightRole(){
     	var row = $("#dg").datagrid('getSelected'); 
     	var row1 = $("#inr").datagrid('getSelected');
-    	if(row1){
-    	 $.post('../do/user/moveRoleUser',{userId:row.id,roleId:row1.id},function(result){
-    	$('#inr').datagrid('reload');
-        	$('#notr').datagrid('reload');
-    	},'json');
+
+        if (row1){
+		    $.messager.confirm('确认','真的要删除课程ID ' + row1.courseId + ' 么?',function(r){
+		        if (r){
+		            $.post('/admin/service/removeTermCourse',{termId:row.termId,courseId:row1.courseId},function(result){
+		                if (result.success){
+		                    $('#inr').datagrid('reload');
+	        				$('#notr').datagrid('reload');
+		                    $.messager.show({    
+		                        title: '提示',
+		                        msg: '课程编号 ' + row.courseId + ' 删除成功!'
+		                    });
+		                } else {
+		                    $.messager.show({    // show error message
+		                        title: 'Error',
+		                        msg: result.errorMsg
+		                    });
+		                }
+		            },'json');
+		        }
+		    });
     	}
-    }
+    }	
     </script>
 </head>
 <body>
@@ -213,38 +225,39 @@
      <div id="dlg-courseSetting" class="easyui-dialog" style="width: 600px;height: 400px;"closed="true" buttons="#dlg-courseSetting-buttons">
 		<div id="cc" class="easyui-layout" fit="true">     
 		    <div data-options="region:'east'" style="width:200px;">
-		    	<table id="inr" class="easyui-datagrid" singleSelect="true">
-		<thead>
-		<tr>
-		<th field="id"  align="center" hidden="true">编号</th>
-		<th field="rname" width="170" align="center">已有课程</th>
-		</tr>
-		</thead>
-		</table>
+		    	<!-- 已分配的课程 -->
+		    	<table id="inr" class="easyui-datagrid" singleSelect="true" method="get">
+					<thead>
+					<tr>
+					<th field="courseId"  align="center" hidden="true">编号</th>
+					<th field="courseName" width="170" align="center">已选课程</th>
+					</tr>
+					</thead>
+				</table>
 		    </div>   
 		    <div data-options="region:'west'" style="width:200px;">
-		    	<table id="notr" class="easyui-datagrid" singleSelect="true">
-		<thead>
-		<tr>
-		<th field="id"  align="center" hidden="true">编号</th>
-		<th field="rname" width="170" align="center">未有课程</th>
-		</tr>
-		</thead>
-		</table>	    
+		    	<!--待分配的课程-->
+		    	<table id="notr" class="easyui-datagrid" singleSelect="true" method="get">
+					<thead>
+					<tr>
+					<th field="courseId"  align="center" hidden="true">编号</th>
+					<th field="courseName" width="170" align="center">未选课程</th>
+					</tr>
+					</thead>
+				</table>	    
 		    </div>   
 		    <div data-options="region:'center'">
-		<div align="center" style="height:200px;padding:50px;">
-		<a href="javascript:leftRole()" class="easyui-linkbutton">&gt;&gt;</a>
-		</div>
-		<div align="center">
-		<a href="javascript:rightRole()" class="easyui-linkbutton">&lt;&lt;</a>
-		</div>	    
+				<div align="center" style="height:200px;padding:50px;">
+				<a href="javascript:leftRole()" class="easyui-linkbutton">&gt;&gt;</a>
+				</div>
+				<div align="center">
+				<a href="javascript:rightRole()" class="easyui-linkbutton">&lt;&lt;</a>
+				</div>	    
 		    </div>   
 		</div> 
 		</div>
 		<div id="dlg-courseSetting-buttons">
-        	<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveNewTerm()" style="width:90px">保存</a>
-        	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-courseSetting').dialog('close')" style="width:90px">取消</a>
+        	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-courseSetting').dialog('close')" style="width:90px">关闭</a>
         </div>
 		
 </body>

@@ -42,5 +42,8 @@
    		   		 where courseId = #{courseId}
   </update>
  
- 
+  <!-- 获取已在使用的课程计数 -->
+  <select id="getUsedCourseCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+   		 SELECT count(*) as cnt from t_rel_term_course where course_id = #{courseId};
+  </select>
 </mapper>
