@@ -15,12 +15,14 @@ import xin.xlchen.dhu.stumanger.model.MCourse;
 import xin.xlchen.dhu.stumanger.model.MLogs;
 import xin.xlchen.dhu.stumanger.model.MRelTermCourse;
 import xin.xlchen.dhu.stumanger.model.MResult;
+import xin.xlchen.dhu.stumanger.model.MRptTermCourseScore;
 import xin.xlchen.dhu.stumanger.model.MScore;
 import xin.xlchen.dhu.stumanger.model.MStudent;
 import xin.xlchen.dhu.stumanger.model.MTerm;
 import xin.xlchen.dhu.stumanger.model.MUser;
 import xin.xlchen.dhu.stumanger.service.CourseService;
 import xin.xlchen.dhu.stumanger.service.LogsService;
+import xin.xlchen.dhu.stumanger.service.ReportService;
 import xin.xlchen.dhu.stumanger.service.ScoreService;
 import xin.xlchen.dhu.stumanger.service.StudentService;
 import xin.xlchen.dhu.stumanger.service.TermService;
@@ -54,7 +56,8 @@ public class SwaggerController {
 	@Autowired
 	private ScoreService scoreService;
 	
-	
+	@Autowired
+	private ReportService reportService;
 	
 	/////////////////////// 账号数据 //////////////////////////////
 	/**
@@ -474,4 +477,15 @@ public class SwaggerController {
 		mScore.setCreateUser(createUser);
 		return scoreService.editStudentScore(mScore);
 	}
+	
+	/////////////////////// 报表数据 //////////////////////////////
+	/**
+     *获取所有学籍#课程分数分布
+     * @return
+     */
+    @ApiOperation(value="获取所有学籍#课程分数分布",notes="requires noting")
+    @RequestMapping(value="/getRptTermCourseScores",method=RequestMethod.GET)
+    public List<MRptTermCourseScore> getRptTermCourseScores(){
+       return reportService.findRptTermCourseScores();
+    }
 }

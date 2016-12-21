@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xin.xlchen.dhu.stumanger.mapper.ReportMapper">
+ 
+  <!-- 查询所有学期#课程分数分布 -->
+  <select id="findRptTermCourseScores" parameterType="java.util.Map" resultType="xin.xlchen.dhu.stumanger.model.MRptTermCourseScore">
+   		SELECT termCourse,score,count(*) as cnt FROM (
+		SELECT CONCAT(t1.termName,'#',t2.courseName) as termCourse,t4.score
+		FROM t_term t1, t_course t2,t_student t3, t_scores t4
+		where t1.termId = t4.termId
+		and t2.courseId = t4.courseId
+		and t3.studentId = t4.studentId ) x
+        GROUP BY termCourse,score
+  </select>
+</mapper>

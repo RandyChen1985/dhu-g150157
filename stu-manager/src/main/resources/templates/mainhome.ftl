@@ -59,7 +59,7 @@
 					<a href="javascript:void(0);" src="/admin/stuadmin/scorepage" class="cs-navi-tab">成绩管理</a></p>
 				</div>
 				<div title="报表中心">
-					<a href="javascript:void(0);" src="http://echarts.baidu.com/gallery/editor.html?c=bar-gradient" class="cs-navi-tab">成绩排名</a></p>
+					<a href="javascript:void(0);" src="/admin/sturpt/termCourseScore" class="cs-navi-tab">成绩分布统计</a></p>
 				</div>
 				<#if Session ["user"].user_type = 1> 
 					<!--管理员的功能-->
